@@ -20,7 +20,7 @@ class List {
          */
         List() {
             head = tail = nullptr;
-            size = 0;
+            listSize = 0;
         }
 
         /**
@@ -123,7 +123,7 @@ class List {
                 }
             }
 
-            size++;
+            listSize++;
         }
 
         /**
@@ -151,7 +151,7 @@ class List {
          * <b>return value</b>: the item at that position
          */
         T & operator[](const int &pos) const {
-            if (pos >= size) {
+            if (pos >= listSize) {
                 throw;
             }
 
@@ -195,6 +195,15 @@ class List {
         }
 
         /**
+         * <b>size</b>: return the size of the list\n
+         * <b>parameters</b>: none\n
+         * <b>return value</b>: the size of the list
+         */
+        int size() const {
+            return listSize;
+        }
+
+        /**
          * <b>slice</b>: remove all the items in a given range\n
          * <b>parameters</b>: a start and end position\n
          * <b>return value</b>: none
@@ -205,7 +214,7 @@ class List {
 
     private:
         ListNode<T> *head, *tail;
-        int size;
+        int listSize;
 };
 
 #endif
