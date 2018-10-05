@@ -1,7 +1,12 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <iostream> // cout, endl
 #include "ListNode.h"
+
+#ifndef LIST_ITEM_NOT_FOUND
+#define LIST_ITEM_NOT_FOUND -1
+#endif
 
 /**
  * List: a doubly-linked list data structure
@@ -61,6 +66,7 @@ class List {
                 tail = newNode;
             }
 
+            listSize++;
             //_sort();
         }
 
@@ -70,7 +76,17 @@ class List {
          * <b>return value</b>: true if the item is in the list, false otherwise
          */
         bool contains(const T &item) const {
+            bool found;
+            ListNode<T> *ptr = head;
 
+            // pre-condition: ptr points to head
+            while (ptr != nullptr and ptr->getItem() != item) {
+                ptr = ptr->getNext();
+            }
+
+            // post-condition: either ptr is null
+            //                 or ptr points to the item
+            return (ptr == nullptr) ? false : true;
         }
 
         /**
@@ -79,7 +95,18 @@ class List {
          * <b>return value</b>: the position of the item if found, -1 otherwise
          */
         int find(const T &item) const {
+            int i = 0;
+            ListNode<T> *ptr = head;
 
+            // pre-condition: ptr points to head
+            while (ptr != nullptr and ptr->getItem() != item) {
+                ptr = ptr->getNext();
+                i++;
+            }
+
+            // post-condition: either ptr is null
+            //                 or ptr points to the item
+            return (ptr == nullptr) ? LIST_ITEM_NOT_FOUND : i;
         }
 
         /**
@@ -105,22 +132,29 @@ class List {
                 ListNode<T> *ptr = head;
 
                 // pre-condition: ptr points to head
-                while (ptr != tail and ptr->getItem() <= item) {
+                while (ptr != tail and ptr->getItem() > item) {
                     ptr = ptr->getNext();
                 }
 
                 // post-condition: ptr points to tail
-                //                 or ptr->getItem() is greater than item
-                if (ptr == tail) {
+                //                 or item is greater than ptr->getItem()
+                if (item >= ptr->getItem()) {
+                    // item goes to the right of ptr
                     newNode->setPrev(ptr);
+                    newNode->setNext(ptr->getNext());
                     ptr->setNext(newNode);
-                    tail = newNode;
+
+                    // check if we inserted at end
+                    if (ptr == tail) {
+                        tail = newNode;
+                    }
                 } else {
-                    newNode->setPrev(ptr->getPrev());
+                    // item goes to the left of ptr
                     newNode->setNext(ptr);
-                    ptr->getPrev()->setNext(newNode);
+                    newNode->setPrev(ptr->getPrev());
                     ptr->setPrev(newNode);
                 }
+
             }
 
             listSize++;
@@ -158,7 +192,7 @@ class List {
             int i = 0;
             ListNode<T> *ptr = head;
 
-            while (i <= pos and ptr != nullptr) {
+            while (i < pos and ptr != nullptr) {
                 i++;
                 ptr = ptr->getNext();
             }
@@ -182,6 +216,7 @@ class List {
                 head = newNode;
             }
 
+            listSize++;
             //_sort();
         }
 
