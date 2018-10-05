@@ -5,47 +5,87 @@
 
 /**
  * List: a doubly-linked list data structure
- * public methods:
- *     constructors: empty, single item, another List object
- *     insertion: insert, append, prepend
- *     access: [], contains, find
- *     remove: remove, slice
- *     list state: isEmpty
  */
 template <class T>
 class List {
     public:
+        /* **************************************************************
+         * ---------------------- CONSTRUCTORS ------------------------ *
+         * **************************************************************/
+
         /**
-         * constructor: create an empty List object
-         * parameters: none
-         * return value: n/a
+         * <b>constructor</b>: create an empty List object\n
+         * <b>parameters</b>: none\n
+         * <b>return value</b>: n/a
          */
         List() {
             head = tail = nullptr;
+            size = 0;
         }
 
         /**
-         * constructor: create a List object containing a single item
-         * parameters: an item
-         * return value: n/a
+         * <b>constructor</b>: create a List object containing a single item\n
+         * <b>parameters</b>: an item\n
+         * <b>return value</b>: n/a
          */
         List(const T &item) : List<T>() {
             insert(item);
         }
 
         /**
-         * constructor: deep copy a List object into a new List object
-         * parameters: a List object
-         * return value: n/a
+         * <b>constructor</b>: deep copy a List object into a new List object\n
+         * <b>parameters</b>: a List object\n
+         * <b>return value</b>: n/a
          */
         List(const List<T> &list) {
 
         }
 
+        /* **************************************************************
+         * ---------------- PUBLIC MEMBER FUNCTIONS ------------------- *
+         * **************************************************************/
+
         /**
-         * insert: insert an item into the linked list
-         * parameters: an item
-         * return value: none
+         * <b>append</b>: add an item at the end of the list\n
+         * <b>parameters</b>: an item\n
+         * <b>return value</b>: none
+         */
+        void append(const T &item) {
+            ListNode<T> *newNode = new ListNode<T>(item);
+
+            if (isEmpty()) {
+                head = tail = newNode;
+            } else {
+                tail->setNext(newNode);
+                newNode->setPrev(tail);
+                tail = newNode;
+            }
+
+            //_sort();
+        }
+
+        /**
+         * <b>contains</b>: check if the list contains an item\n
+         * <b>parameters</b>: an item\n
+         * <b>return value</b>: true if the item is in the list, false otherwise
+         */
+        bool contains(const T &item) const {
+
+        }
+
+        /**
+         * <b>find</b>: find and return the position of an item\n
+         * <b>parameters</b>: an item\n
+         * <b>return value</b>: the position of the item if found, -1 otherwise
+         */
+        int find(const T &item) const {
+
+        }
+
+        /**
+         * <b>insert</b>: insert an item into the linked list\n
+         * <b>parameters</b>: an item\n
+         * <b>return value</b>: none
          */
         void insert(const T &item) {
             // create a new node with the item
@@ -82,19 +122,90 @@ class List {
                     ptr->setPrev(newNode);
                 }
             }
+
+            size++;
         }
 
         /**
-         * isEmpty: test if the list is empty or not
-         * parameters: none
-         * return value: true: if the list has no nodes in it
-         *               false: otherwise
+         * <b>isEmpty</b>: test if the list is empty or not\n
+         * <b>parameters</b>: none\n
+         * <b>return value</b>: true if the list has no nodes in it, 
+         *                   false otherwise
          */
         bool isEmpty() {
             return head == nullptr and tail == nullptr;
         }
+
+        /**
+         * <b>operator=</b>: deep copy another List object\n
+         * <b>parameters</b>: a List object\n
+         * <b>return value</b>: none
+         */
+        void operator=(const List<T> &rhs) {
+
+        }
+
+        /**
+         * <b>operator[]</b>: access an item by position\n
+         * <b>parameters</b>: a position\n
+         * <b>return value</b>: the item at that position
+         */
+        T & operator[](const int &pos) const {
+            if (pos >= size) {
+                throw;
+            }
+
+            int i = 0;
+            ListNode<T> *ptr = head;
+
+            while (i <= pos and ptr != nullptr) {
+                i++;
+                ptr = ptr->getNext();
+            }
+
+            return ptr->getItem();
+        }
+
+        /**
+         * <b>prepend</b>: add an item at the beginning of the list\n
+         * <b>parameters</b>: an item\n
+         * <b>return value</b>: none
+         */
+        void prepend(const T &item) {
+            ListNode<T> *newNode = new ListNode<T>(item);
+
+            if (isEmpty()) {
+                head = tail = newNode;
+            } else {
+                head->setPrev(newNode);
+                newNode->setNext(tail);
+                head = newNode;
+            }
+
+            //_sort();
+        }
+
+        /**
+         * <b>remove</b>: remove an item at a given position\n
+         * <b>parameters</b>: a position\n
+         * <b>return value</b>: none
+         */
+        void remove(const int &pos) {
+
+        }
+
+        /**
+         * <b>slice</b>: remove all the items in a given range\n
+         * <b>parameters</b>: a start and end position\n
+         * <b>return value</b>: none
+         */
+        void slice(const int &start, const int &end) {
+
+        }
+
     private:
         ListNode<T> *head, *tail;
+        int size;
 };
 
 #endif
