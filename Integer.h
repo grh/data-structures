@@ -3,7 +3,7 @@
 
 #include <iostream> // ostream, istream
 
-/*
+/**
  * Integer: 
  *     class representing arbitrarily large integers
  * public methods: 
@@ -66,6 +66,7 @@ class Integer {
         friend std::istream & operator>>(std::istream &, const Integer &);
 
     private:
+        List<int> i; // hold all the bits as a linked list of ints
 };
 
 #endif
