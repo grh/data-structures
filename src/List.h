@@ -186,7 +186,7 @@ class List {
          */
         T & operator[](const int &pos) const {
             if (pos >= listSize) {
-                throw;
+                throw LIST_ITEM_NOT_FOUND;
             }
 
             int i = 0;
