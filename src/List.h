@@ -1,7 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <iostream> // cout, endl
 #include "ListNode.h"
 
 #ifndef LIST_ITEM_NOT_FOUND
