@@ -116,4 +116,13 @@ int main() {
         assert(list.find(1) == LIST_ITEM_NOT_FOUND);
         ASSERT_PASS;
     }
+
+    test("can clear out a list"); {
+        List<int> list(1);
+        list.insert(5);
+        list.insert(3);
+        list.clear();
+        assert(list.isEmpty());
+        ASSERT_PASS;
+    }
 }

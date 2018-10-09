@@ -70,6 +70,17 @@ class List {
         }
 
         /**
+         * <b>clear</b>: delete all items in the list\n
+         * <b>parameters</b>: none\n
+         * <b>return value</b>: none
+         */
+        void clear() {
+            if (!isEmpty()) {
+                _clear();
+            }
+        }
+
+        /**
          * <b>contains</b>: check if the list contains an item\n
          * <b>parameters</b>: an item\n
          * <b>return value</b>: true if the item is in the list, false otherwise
@@ -175,7 +186,11 @@ class List {
          * <b>return value</b>: none
          */
         void operator=(const List<T> &rhs) {
+            int i;
 
+            for (i = 0; i < rhs.size(); i++) {
+                insert(rhs[i]);
+            }
         }
 
         /**
@@ -249,6 +264,15 @@ class List {
     private:
         ListNode<T> *head, *tail;
         int listSize;
+
+        /*
+         * _clear: deallocates all nodes in the list
+         * parameters: none
+         * return value: none
+         */
+        void _clear() {
+
+        }
 };
 
 #endif
